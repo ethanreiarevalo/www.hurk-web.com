@@ -9,6 +9,8 @@ Finished:
 
 3/26/2020 update:
 	-removed pic from dashboard
+	-fixed errors in approve
+	-change email content
 
 future update:
 	-level of access
