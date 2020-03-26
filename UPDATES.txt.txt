@@ -15,4 +15,5 @@ Finished:
 future update:
 	-level of access
 	-complete profile dashboard
+	-if employee has no email
 	
