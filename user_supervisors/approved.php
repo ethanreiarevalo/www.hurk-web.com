@@ -6,7 +6,15 @@
     $superVisor= $_POST['lr_super'];
     //test
     // echo $leaverequestID;
-
+    $startdate = "";
+    $enddate = "";
+    $leaveDetails = "SELECT * FROM leaverequest WHERE leaverequestID = '$leaverequestID'";
+    $details_result = mysqli_query($connection, $leaveDetails);
+    $row_details = mysqli_fetch_array($details_result);
+    if($row_details['leaverequestID'] == $leaverequestID){
+        $startdate = $row_details['leaverequestStartDate'];
+        $enddate = $row_details['leaverequestEndDate'];
+    }
     $approveRequest = mysqli_query($connection, "Update leaverequest set `emp_supervisor_response` = 'Approved' where `leaverequestID` = '$leaverequestID'");
     $supervisor = "Select emp_id, first_name, last_name, email_add from tbl_emp_info where emp_id = '$superVisor'";
     $super_result = mysqli_query($connection,$supervisor);
@@ -20,7 +28,7 @@
                 $email_add = $row['email_add'];
                 $to = $row['email_add'];
                 $subject = "Hurk Leave Request";
-                $msg = "Your leave request have been approved by your supervisor, ".$name.".";
+                $msg = "Good day!\n\nYour leave request for the dates ".$startdate." to ".$enddate." has been APPROVED by your supervisor,".$name." .\n\n Thank you for using HuRK, \n Human Resource Kiosk";
                 $headers = "From: HuRKKiosk@gmail.com";
                 
                 mail($to,$subject,$msg,$headers);
