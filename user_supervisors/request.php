@@ -108,9 +108,9 @@
                                             <td>
                                                 <div class="row justify-content-between">
                                                     <form action="approved.php" method="post">
-                                                        <input type="hidden" name="lr_ID" id="dStatus" value="'.$row['leaverequestID'].'">
-                                                        <input type="hidden" name="lr_EID" id="dStatus" value="'.$row['emp_id'].'">
-                                                        <input type="hidden" name="lr_super" id="dStatus" value="'.$row['emp_supervisor'].'">
+                                                        <input type="hidden" name="lr_ID" id="dStatus" value="<?=$row['leaverequestID']?>">
+                                                        <input type="hidden" name="lr_EID" id="dStatus" value="<?=$row['emp_id']?>">
+                                                        <input type="hidden" name="lr_super" id="dStatus" value="<?=$row['emp_supervisor']?>">
                                                         <button name="approved" class="btn btn-primary">Approve</button>
                                                     </form>
                                                     
