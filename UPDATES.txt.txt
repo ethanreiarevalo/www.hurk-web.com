@@ -1,0 +1,16 @@
+Finished:
+	-approve
+	-disapprove
+	-changing admin
+	-changing password
+	-forgot password
+	-reports
+	-search
+
+3/26/2020 update:
+	-removed pic from dashboard
+
+future update:
+	-level of access
+	-complete profile dashboard
+	
