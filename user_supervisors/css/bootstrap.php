@@ -4,7 +4,7 @@
 <link rel="icon" href="../image/OKAERI_tab.png" type="image/gif" sizes="16x16">
 <style>
         html,body{
-            
+            overflow-y: auto !important;
         }
         a{
             text-decoration: none !important;
