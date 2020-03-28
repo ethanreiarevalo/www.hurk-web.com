@@ -19,15 +19,12 @@
     if($request_table_result -> num_rows > 0){
         $output = "<thead>
                           <tr>
-                               <th>
-                                   Name
-                               </th>
-                               <th>
-                                   Request Type
-                               </th>
-                               <th>
-                                   Status
-                               </th>
+                            <th>Name</th>
+                            <th>Request Type</th>
+                            <th>Start Date</th>
+                            <th>End Date</th>
+                            <th>Approval Date</th>
+                            <th>Status</th>
                           </tr>
                        </thead>
                        <tbody>";
@@ -37,6 +34,9 @@
                                       <tr>
                                            <td>". $row['leaverequestEmployeeName'] ."</td>
                                            <td>". $row['leaverequestType'] ."</td>
+                                           <td>". $row['leaverequestStartDate'] ."</td>
+                                           <td>". $row['leaverequestEndDate'] ."</td>
+                                           <td>". $row['date_approval'] ."</td>
                                            <td>". $row['emp_supervisor_response'] ."</td>
                                       </tr>
                                       ";

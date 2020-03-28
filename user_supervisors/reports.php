@@ -61,7 +61,7 @@
                     </a>
                 </div>
             </div>
-            <div class="content col-xl-9 col-lg-8 overflow-hidden">
+            <div class="content col-xl-9 col-lg-8">
                 <div class="container">
                     <div class="d-container mb-0 jumbotron bg-transparent">
                         <h5>Reports</h5>
@@ -77,21 +77,27 @@
                     </div>
                     <div class="text-center table-container table table-responsive d-block">
                     <?php
-                    $reports_table_sql = "Select leaverequestEmployeeName, leaverequestType, emp_supervisor_response from leaverequest where emp_supervisor = '$ID_No' && emp_supervisor_response <> 'Pending'";
+                    $reports_table_sql = "Select leaverequestEmployeeName, date_approval, leaverequestType, emp_supervisor_response, leaverequestStartDate, leaverequestEndDate from leaverequest where emp_supervisor = '$ID_No' && emp_supervisor_response <> 'Pending'";
                     $reports_table_result = mysqli_query($connection,$reports_table_sql);
                     if($reports_table_result -> num_rows > 0){?>
                         <table class="table table-bordered table-striped table-hover w-75 m-auto" id="table-data">
                             <tr>
                                 <th>Name</th>
                                 <th>Request Type</th>
+                                <th>Start Date</th>
+                                <th>End Date</th>
+                                <th>Approval Date</th>
                                 <th>Status</th>
                             </tr>
 
                             <?php while($row = $reports_table_result -> fetch_assoc()){?>
                                 <tr>
-                                <td><?=$row["leaverequestEmployeeName"]?></td>
-                                <td><?=$row["leaverequestType"]?></td>
-                                <td><?=$row["emp_supervisor_response"]?></td>
+                                    <td><?=$row["leaverequestEmployeeName"]?></td>
+                                    <td><?=$row["leaverequestType"]?></td>
+                                    <td><?=$row["leaverequestStartDate"]?></td>
+                                    <td><?=$row["leaverequestEndDate"]?></td>
+                                    <td><?=$row["date_approval"]?></td>
+                                    <td><?=$row["emp_supervisor_response"]?></td>
                                 </tr>
                             <?php }}?>
                         </table>

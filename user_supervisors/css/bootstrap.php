@@ -5,6 +5,7 @@
 <style>
         html,body{
             overflow-y: auto !important;
+            overflow-x: hidden !important;
         }
         a{
             text-decoration: none !important;
@@ -51,9 +52,6 @@
             transition: 0.5s;
         }
         
-        .number-content{
-            overflow-y:scroll;
-        }
         html,body{
                 overflow:auto;
             }
@@ -78,10 +76,7 @@
             padding-top: 30%;
         }
 
-        .table-container{
-            height:40vh;
-            overflow-y:auto;
-        }
+        
         #wrapper-row{
             z-index:-1 !important;
         }
@@ -100,9 +95,7 @@
             border-radius:5px;
         }
         @media only screen and (min-width:992px){
-            html,body{
-                overflow:hidden;
-            }
+            
             .card{
                 margin: 1% !important;
             }

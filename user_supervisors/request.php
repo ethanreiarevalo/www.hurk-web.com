@@ -108,9 +108,10 @@
                                             <td>
                                                 <div class="row justify-content-between">
                                                     <form action="approved.php" method="post">
-                                                        <input type="hidden" name="lr_ID" id="dStatus" value="<?=$row['leaverequestID']?>">
-                                                        <input type="hidden" name="lr_EID" id="dStatus" value="<?=$row['emp_id']?>">
-                                                        <input type="hidden" name="lr_super" id="dStatus" value="<?=$row['emp_supervisor']?>">
+                                                        <input type="hidden" name="lr_ID" id="dStatus" value="<?=$row['leaverequestID'];?>">
+                                                        <input type="hidden" name="lr_EID" id="dStatus" value="<?=$row['emp_id'];?>">
+                                                        <input type="hidden" name="lr_super" id="dStatus" value="<?=$row['emp_supervisor'];?>">
+                                                        <input type="hidden" name = "lr_type" value = "<?=$row['leaverequestType'];?>">
                                                         <button name="approved" class="btn btn-primary">Approve</button>
                                                     </form>
                                                     
@@ -158,11 +159,11 @@
         {
             table.rows[i].onclick = function()
             {
-                 //rIndex = this.rowIndex;
-                //alert(this.cells[0].innerHTML);
+                //FOR MODAL
                 document.getElementById("l_ID").value = this.cells[0].innerHTML;
                 document.getElementById("l_EID").value = this.cells[1].innerHTML;
                 document.getElementById("l_super").value = this.cells[2].innerHTML;
+                
             };
         }
     </script>

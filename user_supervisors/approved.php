@@ -4,6 +4,9 @@
     $leaverequestID = $_POST['lr_ID'];
     $leaverequestEmployeeID = $_POST['lr_EID'];
     $superVisor= $_POST['lr_super'];
+    $requestType = $_POST['lr_type'];
+    $date = date("Y-m-d");
+    echo $requestType.$superVisor.$leaverequestID.$leaverequestEmployeeID;
     //test
     // echo $leaverequestID;
     $startdate = "";
@@ -15,7 +18,13 @@
         $startdate = $row_details['leaverequestStartDate'];
         $enddate = $row_details['leaverequestEndDate'];
     }
-    $approveRequest = mysqli_query($connection, "Update leaverequest set `emp_supervisor_response` = 'Approved' where `leaverequestID` = '$leaverequestID'");
+    $approveRequest = mysqli_query($connection, "UPDATE leaverequest set `emp_supervisor_response` = 'Approved', `date_approval` = '$date' where `leaverequestID` = '$leaverequestID'");
+    if($requestType == "Vacation Leave"){
+        $updateCredit = mysqli_query($connection,"UPDATE tbl_emp_info SET `vl_bal` = (vl_bal-1) WHERE emp_id = $leaverequestEmployeeID");
+    }
+    else if($requestType == "Sick Leave"){
+        $updateCredit = mysqli_query($connection,"UPDATE tbl_emp_info SET `sl_bal` = (sl_bal-1) WHERE emp_id = $leaverequestEmployeeID");
+    }
     $supervisor = "Select emp_id, first_name, last_name, email_add from tbl_emp_info where emp_id = '$superVisor'";
     $super_result = mysqli_query($connection,$supervisor);
         $row = mysqli_fetch_array($super_result);

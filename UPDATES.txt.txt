@@ -11,10 +11,13 @@ Finished:
 	-removed pic from dashboard
 	-fixed errors in approve
 	-change email content
-
+3/28/2020 update:
+	-minus 1:1 credit balance when approved
+	-removed table scroll and fixed height
+	-add to reports page, start date column, end date column, date requested column and approval date column supervisor
 future update:
 	-level of access
 	-complete profile dashboard
-	-if employee has no email (page)
-	-add to reports page, start date column, end date column, date requested column and approval date column
+	-if employee has no email (page)	
+	-add to reports page date approval, start-end date, date requested hr
 	
