@@ -7,6 +7,7 @@
         $ID_No = $_SESSION['ID_No'];
         $PW = $_SESSION['PW'];
         $accountType = $_SESSION['Type'];
+        $coll = $_SESSION['college'];
         $accountquery = "Select * from tbl_emp_info where emp_id = '$ID_No'";
         $result = mysqli_query($connection,$accountquery);
         $row = mysqli_fetch_array($result);
