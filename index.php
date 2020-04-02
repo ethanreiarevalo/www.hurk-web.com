@@ -6,7 +6,7 @@
         $ID_No = $connection->real_escape_string($_POST['ID_No']);
         $Emp_Pass = $connection->real_escape_string($_POST['Emp_Pass']);
 
-        $loginquery = "Select emp_id, Type, College, department empl_password from accounts where emp_id = '$ID_No' && empl_password = '$Emp_Pass'";
+        $loginquery = "Select emp_id, Type, College, department, empl_password from accounts where emp_id = '$ID_No' && empl_password = '$Emp_Pass'";
         $result = mysqli_query($connection,$loginquery);
         $row = mysqli_fetch_array($result);
         //For all non-hr
@@ -24,11 +24,11 @@
             $_SESSION['PW'] = $row['empl_password'];
             $_SESSION['Type'] = $row['Type'];
             $_SESSION['college'] = $row['College'];
-            header("Location: user_hr/dashboard.php");
+            header("Location: user_hr/admins.php");
             exit;
         }
         else if($row['emp_id']==$ID_No && $row['empl_password'] == $Emp_Pass && $row['Type'] == "non-admin" && $row['department'] == "HRDO" || $row['department'] != "HRDO"){
-            $loginerror = "You are not authorized to enter this site."
+            $loginerror = "You are not authorized to enter this site.";
         }
         else{
             $loginerror = "Oops! Incorrect ID No. or Password.";
