@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 25, 2020 at 07:39 AM
+-- Generation Time: Apr 02, 2020 at 12:06 PM
 -- Server version: 10.1.36-MariaDB
 -- PHP Version: 7.2.10
 
@@ -620,9 +620,9 @@ CREATE TABLE `leaverequest` (
 --
 
 INSERT INTO `leaverequest` (`leaverequestID`, `date_requested`, `leaverequestType`, `leaverequestLocation`, `leaverequestNoOfDays`, `leaverequestStartDate`, `leaverequestEndDate`, `leaverequestCommutation`, `emp_id`, `leaverequestEmployeeName`, `emp_supervisor`, `emp_supervisor_response`, `emp_supervisor_remarks`, `hr_status`, `hr_remarks`, `respondedby_hr`) VALUES
-(11, '2020-03-03', 'Vacation Leave', 'local', 4, '2020-03-06', '2020-03-10', 'Requested', '201517119', 'Carlo Angeles', '201510576', 'Pending', NULL, 'Pending', NULL, NULL),
-(12, '2020-03-07', 'Sick Leave', 'local', 1, '2020-03-05', '2020-03-06', 'Requested', '201517119', 'Carlo Angeles', '201510576', 'Pending', NULL, 'Pending', NULL, NULL),
-(13, '2020-03-07', 'Vacation Leave', 'local', 2, '2020-03-11', '2020-03-13', 'Requested', '201517119', 'Carlo Angeles', '201510576', 'Pending', NULL, 'Pending', NULL, NULL),
+(11, '2020-03-03', 'Vacation Leave', 'local', 4, '2020-03-06', '2020-03-10', 'Requested', '201517119', 'Carlo Angeles', '201510576', 'Disapproved', 'because ethan is a girl', 'Pending', NULL, NULL),
+(12, '2020-03-07', 'Sick Leave', 'local', 1, '2020-03-05', '2020-03-06', 'Requested', '201517119', 'Carlo Angeles', '201510576', 'Approved', NULL, 'Pending', NULL, NULL),
+(13, '2020-03-07', 'Vacation Leave', 'local', 2, '2020-03-11', '2020-03-13', 'Requested', '201517119', 'Carlo Angeles', '201510576', 'Approved', NULL, 'Pending', NULL, NULL),
 (14, '2020-03-07', 'Vacation Leave', 'local', 4, '2020-03-10', '2020-03-13', 'Requested', '201517119', 'Carlo Angeles', '201510576', 'Pending', NULL, 'Pending', NULL, NULL),
 (15, '2020-03-07', 'Vacation Leave', 'local', 5, '2020-03-10', '2020-03-14', 'Requested', '201517119', 'Carlo Angeles', '201510576', 'Pending', NULL, 'Pending', NULL, NULL),
 (16, '2020-03-07', 'Vacation Leave', 'local', 5, '2020-03-10', '2020-03-14', 'Requested', '201517119', 'Carlo Angeles', '201510576', 'Pending', NULL, 'Pending', NULL, NULL),
@@ -921,6 +921,65 @@ INSERT INTO `tbl_emp_info` (`id`, `emp_id`, `is_active`, `last_name`, `first_nam
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `tbl_heirarchy`
+--
+
+CREATE TABLE `tbl_heirarchy` (
+  `heirarchy_id` int(11) NOT NULL,
+  `college_code` int(11) NOT NULL,
+  `college_abrev` varchar(50) NOT NULL,
+  `supervisor_code` int(11) DEFAULT NULL,
+  `supevisor_abrev` varchar(50) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `tbl_heirarchy`
+--
+
+INSERT INTO `tbl_heirarchy` (`heirarchy_id`, `college_code`, `college_abrev`, `supervisor_code`, `supevisor_abrev`) VALUES
+(1, 26, 'OUP', NULL, NULL),
+(2, 23, 'OVPAA', 26, 'OUP'),
+(3, 1, 'CAFENR', 23, 'OVPAA'),
+(4, 2, 'CAS', 23, 'OVPAA'),
+(5, 3, 'CCJ', 23, 'OVPAA'),
+(6, 4, 'CED', 23, 'OVPAA'),
+(7, 5, 'CEIT', 23, 'OVPAA'),
+(8, 6, 'CEMDS', 23, 'OVPAA'),
+(9, 7, 'CON', 23, 'OVPAA'),
+(10, 8, 'CSPEAR', 23, 'OVPAA'),
+(11, 9, 'CVMBS', 23, 'OVPAA'),
+(12, 10, 'BACOOR', 23, 'OVPAA'),
+(13, 11, 'CARMONA', 23, 'OVPAA'),
+(14, 12, 'CAVITE CITY', 23, 'OVPAA'),
+(15, 13, 'GENERAL TRIAS', 23, 'OVPAA'),
+(16, 14, 'IMUS', 23, 'OVPAA'),
+(17, 15, 'NAIC', 23, 'OVPAA'),
+(18, 16, 'ROSARIO', 23, 'OVPAA'),
+(19, 17, 'SILANG', 23, 'OVPAA'),
+(20, 18, 'TRECE MARTIRES', 23, 'OVPAA'),
+(21, 19, 'TANZA', 23, 'OVPAA'),
+(22, 28, 'MARAGONDON', 23, 'OVPAA'),
+(23, 33, 'OSAS', 23, 'OVPAA'),
+(24, 22, 'OVPRE', 26, 'OUP'),
+(25, 30, 'NCRDEC', 22, 'OVPRE'),
+(26, 34, 'KNOWLEDGE MANAGEMENT CENTER', 22, 'OVPRE'),
+(27, 24, 'OVPASS', 26, 'OUP'),
+(28, 21, 'ADMIN', 24, 'OVPASS'),
+(29, 39, 'UNIVERSITY HEALTH SERVICES', 24, 'OVPASS'),
+(30, 32, 'UCSS', 24, 'OVPASS'),
+(31, 31, 'PPS', 24, 'OVPASS'),
+(32, 27, 'FINANCE', 24, 'OVPASS'),
+(33, 25, 'OVPEBA', 26, 'OUP'),
+(34, 29, 'OVPPD', 26, 'OUP'),
+(35, 40, 'OVPPD', 26, 'OUP'),
+(36, 35, 'INSTITUTIONAL DEVELOPMENT OFFICE', 29, 'OVPPD'),
+(37, 35, 'INSTITUTIONAL DEVELOPMENT OFFICE', 40, 'OVPPD'),
+(38, 37, 'GAD', 26, 'OUP'),
+(39, 20, 'GS/OLC', 26, 'OUP');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `tbl_position`
 --
 
@@ -1124,6 +1183,12 @@ ALTER TABLE `tbl_emp_info`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `tbl_heirarchy`
+--
+ALTER TABLE `tbl_heirarchy`
+  ADD PRIMARY KEY (`heirarchy_id`);
+
+--
 -- Indexes for table `tbl_position`
 --
 ALTER TABLE `tbl_position`
@@ -1168,6 +1233,12 @@ ALTER TABLE `tbl_department`
 --
 ALTER TABLE `tbl_emp_info`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT for table `tbl_heirarchy`
+--
+ALTER TABLE `tbl_heirarchy`
+  MODIFY `heirarchy_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
 
 --
 -- AUTO_INCREMENT for table `tbl_position`
