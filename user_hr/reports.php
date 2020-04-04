@@ -47,6 +47,12 @@
                             Admins
                         </div>
                     </a>
+                    <a name="link" href="admin_hr.php">
+                        <div class="side-link text-dark p-3 mt-2">
+                            <i class="fas fa-user-tie ml-4"></i>
+                            HRDO Admin
+                        </div>
+                    </a>
                     <a name="link" href="reports.php">
                         <div class="side-link-active text-success p-3 mt-2">
                             <i class="fas fa-table ml-4"></i>

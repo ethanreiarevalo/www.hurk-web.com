@@ -43,13 +43,13 @@
                 <div class="sb py-3 mt-5">
                     <h5 class="ml-4">Menu</h5>
                     <a name="link" href="admins.php">
-                        <div class="side-link-active text-success p-3 mt-2">
+                        <div class="side-link text-dark p-3 mt-2">
                             <i class="fas fa-user-tie ml-4"></i>
                             Admins
                         </div>
                     </a>
                     <a name="link" href="admin_hr.php">
-                        <div class="side-link text-dark p-3 mt-2">
+                        <div class="side-link-active text-success p-3 mt-2">
                             <i class="fas fa-user-tie ml-4"></i>
                             HRDO Admin
                         </div>
@@ -79,14 +79,13 @@
                     </div>
                     <div class="text-center table-container table table-responsive d-block">
                     <?php
-                    $reports_table_sql = "SELECT tbl_emp_info.emp_id, CONCAT(tbl_emp_info.first_name,' ', tbl_emp_info.last_name) AS emp_name, accounts.Type, accounts.College FROM tbl_emp_info INNER JOIN accounts ON tbl_emp_info.emp_id = accounts.emp_id";
+                    $reports_table_sql = "SELECT tbl_emp_info.emp_id, CONCAT(tbl_emp_info.first_name,' ', tbl_emp_info.last_name) AS emp_name, accounts.Type, accounts.College, accounts.hr_type, accounts.department FROM tbl_emp_info INNER JOIN accounts ON tbl_emp_info.emp_id = accounts.emp_id WHERE accounts.department = 'HRDO'";
                     $reports_table_result = mysqli_query($connection,$reports_table_sql);
                     if($reports_table_result -> num_rows > 0){?>
                         <table class="table table-bordered table-striped table-hover w-75 m-auto" id="table-data">
                             <tr>
                                 <th>Employee ID</th>
                                 <th>Name</th>
-                                <th>College</th>
                                 <th>Type</th>
                             </tr>
 
@@ -95,7 +94,7 @@
                                     $empid = $row['emp_id'];
                                     $Name = $row['emp_name'];
                                     $college = $row['College'];
-                                    $type = $row['Type'];
+                                    $type = $row['hr_type'];
                                     
                             ?>
                                 <tr>
@@ -104,9 +103,6 @@
                                     </td>
                                     <td>
                                         <?php echo $Name;?>
-                                    </td>
-                                    <td>
-                                        <?php echo $college;?>
                                     </td>
                                     <td class="text-success">
                                         <?php
@@ -168,14 +164,8 @@
                     <!--ConFirmation MODAL-->
                     <!-- <div id="modalwrapper" style = "height: 100vh; width:100%; background-color:#0009;"> -->
                     <div id="modal-remarks" class="popup position position-fixed text-center p-5">
-                        <form action="adminchange.php" method="post">
-                            <input type="hidden" name="id" id="Id">
-                            <input type="hidden" name="college" id="College">
-                            <input type="hidden" name="type" id="Type">
-                            
-                            <input type="hidden" name="a_id" id="a_Id">
-                            <input type="hidden" name="a_college" id="a_College">
-                            
+                        <form action="adminhr_change.php" method="post">
+                            <input type="text" name="emp_id" id="emp_id">
                             <p class="lead text-center">Notice</p>
                             <p id="notice-text" class="text-center"></p>
                             <p class="text-center">Are you sure you want to change?</p>
@@ -217,14 +207,14 @@
             });
         });
         var table = document.getElementById("table-data");
-        var College = "";
-        var Name = "";
-        var Id = "";
-        var type = "";
-        var a_College = "";
-        var a_Name = "";
-        var a_Id = "";
-        var a_Type = "";
+        // var College = "";
+        // var Name = "";
+        // var Id = "";
+        // var type = "";
+        // var a_College = "";
+        // var a_Name = "";
+        // var a_Id = "";
+        // var a_Type = "";
         function modalOpen(){
             var modal = document.getElementById("modal-remarks");
             modal.className = "pop";
@@ -234,43 +224,49 @@
             modal.className = "popup";
             $("#notice-text").text("");
         }  
-
-        
         for(var i = 1; i < table.rows.length; i++)
         {
             table.rows[i].onclick = function()
             {
-                 //rIndex = this.rowIndex;
-                // alert(this.cells[2].innerHTML);
-                // document.getElementById("inputCollege").value = $.trim(this.cells[2].innerHTML);
-                College = this.cells[2].innerHTML;
-                Name = this.cells[1].innerHTML;
-                Id = this.cells[0].innerHTML;
-                type = this.cells[3].innerHTML;
-                $("#Id").val($.trim(Id));
-                $("#College").val($.trim(College));
-                $("#Type").val($.trim(type));
-                for(var a = 1; a < table.rows.length; a++)
-                {
-                //  alert( table.rows[a].cells[2].innerHTML + " " +table.rows[a].cells[3].innerHTML);
-                    a_Id = table.rows[a].cells[0].innerHTML;
-                    a_College = table.rows[a].cells[2].innerHTML;
-                    a_Type = table.rows[a].cells[3].innerHTML;
-                    var a_Name = table.rows[a].cells[1].innerHTML;
-                    //alert(College == a_College);
-                    if(College == a_College && a_Type != type){
-                        $("#a_Id").val($.trim(a_Id));
-                        $("#a_College").val($.trim(a_College));
-                        $("#notice-text").text("The current admin of " + College + " is " + a_Name + ".");
-                        break;
-                    }
-                    else if(College == a_College && a_Type == type){
-                        $("#notice-text").text("There is no current admin for this College.");
-                    }  
-                }
-
-            }
+                document.getElementById("emp_id").value = $.trim(this.cells[0].innerHTML);
+            };
         }
+        
+        // for(var i = 1; i < table.rows.length; i++)
+        // {
+        //     table.rows[i].onclick = function()
+        //     {
+        //          //rIndex = this.rowIndex;
+        //         // alert(this.cells[2].innerHTML);
+        //         // document.getElementById("inputCollege").value = $.trim(this.cells[2].innerHTML);
+        //         College = this.cells[2].innerHTML;
+        //         Name = this.cells[1].innerHTML;
+        //         Id = this.cells[0].innerHTML;
+        //         type = this.cells[3].innerHTML;
+        //         $("#Id").val($.trim(Id));
+        //         $("#College").val($.trim(College));
+        //         $("#Type").val($.trim(type));
+        //         for(var a = 1; a < table.rows.length; a++)
+        //         {
+        //         //  alert( table.rows[a].cells[2].innerHTML + " " +table.rows[a].cells[3].innerHTML);
+        //             a_Id = table.rows[a].cells[0].innerHTML;
+        //             a_College = table.rows[a].cells[2].innerHTML;
+        //             a_Type = table.rows[a].cells[3].innerHTML;
+        //             var a_Name = table.rows[a].cells[1].innerHTML;
+        //             //alert(College == a_College);
+        //             if(College == a_College && a_Type != type){
+        //                 $("#a_Id").val($.trim(a_Id));
+        //                 $("#a_College").val($.trim(a_College));
+        //                 $("#notice-text").text("The current admin of " + College + " is " + a_Name + ".");
+        //                 break;
+        //             }
+        //             else if(College == a_College && a_Type == type){
+        //                 $("#notice-text").text("There is no current admin for this College.");
+        //             }  
+        //         }
+
+        //     }
+        // }
         
         
     </script>
