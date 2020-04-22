@@ -5,7 +5,7 @@
     if($_SERVER["REQUEST_METHOD"] == "POST"){
         $ID_No = $connection->real_escape_string($_POST['ID_No']);
         $Emp_Pass = $connection->real_escape_string($_POST['Emp_Pass']);
-
+//test
         $loginquery = "Select emp_id, Type, College, department, hr_type, empl_password from accounts where emp_id = '$ID_No' && empl_password = '$Emp_Pass'";
         $result = mysqli_query($connection,$loginquery);
         $row = mysqli_fetch_array($result);
