@@ -67,9 +67,9 @@
                 <div class="container">
                     <div class="d-container mb-0 jumbotron bg-transparent">
                         <h5>Accounts</h5>
-                        <!-- <p class="lead">Request history can be seen here</p> -->
                         <hr class="my-4">
-                        
+                        <p class="text-danger">Note: You are the admin of this page, changing it would automatically log you out of the site.</p>
+                        <hr class="my-4">
                         <div class="row justify-content-center">
                             <div class="row input-group border-bottom w-75 justify-content-center align-items-center">
                                 <i class="fa fa-search"></i>
@@ -79,7 +79,7 @@
                     </div>
                     <div class="text-center table-container table table-responsive d-block">
                     <?php
-                    $reports_table_sql = "SELECT tbl_emp_info.emp_id, CONCAT(tbl_emp_info.first_name,' ', tbl_emp_info.last_name) AS emp_name, accounts.Type, accounts.College, accounts.hr_type, accounts.department FROM tbl_emp_info INNER JOIN accounts ON tbl_emp_info.emp_id = accounts.emp_id WHERE accounts.department = 'HRDO'";
+                    $reports_table_sql = "SELECT tbl_emp_info.emp_id, CONCAT(tbl_emp_info.first_name,' ', tbl_emp_info.last_name) AS emp_name, accounts.Type, accounts.College, accounts.hr_type, accounts.department FROM tbl_emp_info INNER JOIN accounts ON tbl_emp_info.emp_id = accounts.emp_id WHERE accounts.department = 'HRDO' && accounts.hr_type = 'non-admin'";
                     $reports_table_result = mysqli_query($connection,$reports_table_sql);
                     if($reports_table_result -> num_rows > 0){?>
                         <table class="table table-bordered table-striped table-hover w-75 m-auto" id="table-data">
@@ -165,7 +165,7 @@
                     <!-- <div id="modalwrapper" style = "height: 100vh; width:100%; background-color:#0009;"> -->
                     <div id="modal-remarks" class="popup position position-fixed text-center p-5">
                         <form action="adminhr_change.php" method="post">
-                            <input type="text" name="emp_id" id="emp_id">
+                            <input type="hidden" name="emp_id" id="emp_id">
                             <p class="lead text-center">Notice</p>
                             <p id="notice-text" class="text-center"></p>
                             <p class="text-center">Are you sure you want to change?</p>
