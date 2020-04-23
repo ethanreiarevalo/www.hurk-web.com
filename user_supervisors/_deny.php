@@ -24,7 +24,7 @@
             <img src="images/logohurk.png" alt="">
             <h4 class="lead">Request Denied</h4>
             <hr>
-            <p class="text-center">The request has been DENIED by the system due to insufficient leave credits. To notify the the requester an email has been sent!</p>
+            <p class="text-center">The request has been DENIED by the system due to insufficient leave credits. An email has been sent to the request sender!</p>
             <hr>
             <a href="request.php" class="btn btn-success">Go back</a>
         </div>

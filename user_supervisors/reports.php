@@ -86,7 +86,7 @@
                                 <th>Request Type</th>
                                 <th>Start Date</th>
                                 <th>End Date</th>
-                                <th>Approval Date</th>
+                                <th>Date Responded</th>
                                 <th>Status</th>
                             </tr>
 

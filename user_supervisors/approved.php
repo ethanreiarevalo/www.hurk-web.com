@@ -47,7 +47,7 @@
             $startdate = $row_details['leaverequestStartDate'];
             $enddate = $row_details['leaverequestEndDate'];
         }
-        $dapproveRequest = mysqli_query($connection, "Update leaverequest set `emp_supervisor_response` = 'Disapproved', `emp_supervisor_remarks` = '$remarks' where `leaverequestID` = '$leaverequestID'");
+        $dapproveRequest = mysqli_query($connection, "Update leaverequest set `emp_supervisor_response` = 'Disapproved', `date_approval` = '$date', `emp_supervisor_remarks` = '$remarks' where `leaverequestID` = '$leaverequestID'");
         $supervisor = "Select emp_id, first_name, last_name, email_add from tbl_emp_info where emp_id = '$superVisor'";
         $super_result = mysqli_query($connection,$supervisor);
             $row = mysqli_fetch_array($super_result);
