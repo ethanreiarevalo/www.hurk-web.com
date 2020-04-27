@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 02, 2020 at 12:06 PM
+-- Generation Time: Apr 27, 2020 at 04:04 PM
 -- Server version: 10.1.36-MariaDB
 -- PHP Version: 7.2.10
 
@@ -559,8 +559,6 @@ CREATE TABLE `accounts` (
   `accountID` int(11) NOT NULL,
   `Type` varchar(11) NOT NULL,
   `College` varchar(20) NOT NULL,
-  `department` varchar(100) NOT NULL,
-  `position` int(11) NOT NULL,
   `empl_password` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -568,12 +566,14 @@ CREATE TABLE `accounts` (
 -- Dumping data for table `accounts`
 --
 
-INSERT INTO `accounts` (`emp_id`, `accountID`, `Type`, `College`, `department`, `position`, `empl_password`) VALUES
-(201416386, 1, 'non-admin', 'OVPASS', 'HRDO', 0, '1234'),
-(201311111, 4, 'admin', 'OVPASS', 'HRDO', 0, '1234'),
-(201510576, 5, 'admin', 'CEIT', '', 0, '1234'),
-(201517119, 12, 'Non - Admin', 'CEIT', '', 0, NULL),
-(201610456, 13, 'Non - Admin', 'CEIT', '', 0, NULL);
+INSERT INTO `accounts` (`emp_id`, `accountID`, `Type`, `College`, `empl_password`) VALUES
+(201416386, 1, 'admin', 'HRDO', '1234'),
+(201311111, 4, 'admin', 'OVPASS', '1234'),
+(201510576, 5, 'admin', 'CEIT', '1234'),
+(201517119, 12, 'Non - Admin', 'CEIT', NULL),
+(201610456, 13, 'Non - Admin', 'CEIT', NULL),
+(2, 14, 'Non - Admin', 'OVPAA', NULL),
+(1, 15, 'Non - Admin', 'OUP', NULL);
 
 -- --------------------------------------------------------
 
@@ -589,6 +589,13 @@ CREATE TABLE `lc_bal_log` (
   `updatedLeaveCredits` int(11) NOT NULL,
   `dateUpdated` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `lc_bal_log`
+--
+
+INSERT INTO `lc_bal_log` (`logID`, `emp_id`, `leave_type`, `prevLeaveCredits`, `updatedLeaveCredits`, `dateUpdated`) VALUES
+(1, 201517119, 'Vacation Leave', 5, 1, '2020-04-23');
 
 -- --------------------------------------------------------
 
@@ -610,6 +617,7 @@ CREATE TABLE `leaverequest` (
   `emp_supervisor` varchar(500) NOT NULL,
   `emp_supervisor_response` varchar(50) NOT NULL,
   `emp_supervisor_remarks` varchar(500) DEFAULT NULL,
+  `date_approval` date DEFAULT NULL,
   `hr_status` varchar(15) NOT NULL,
   `hr_remarks` varchar(500) DEFAULT NULL,
   `respondedby_hr` varchar(40) DEFAULT NULL
@@ -619,26 +627,34 @@ CREATE TABLE `leaverequest` (
 -- Dumping data for table `leaverequest`
 --
 
-INSERT INTO `leaverequest` (`leaverequestID`, `date_requested`, `leaverequestType`, `leaverequestLocation`, `leaverequestNoOfDays`, `leaverequestStartDate`, `leaverequestEndDate`, `leaverequestCommutation`, `emp_id`, `leaverequestEmployeeName`, `emp_supervisor`, `emp_supervisor_response`, `emp_supervisor_remarks`, `hr_status`, `hr_remarks`, `respondedby_hr`) VALUES
-(11, '2020-03-03', 'Vacation Leave', 'local', 4, '2020-03-06', '2020-03-10', 'Requested', '201517119', 'Carlo Angeles', '201510576', 'Disapproved', 'because ethan is a girl', 'Pending', NULL, NULL),
-(12, '2020-03-07', 'Sick Leave', 'local', 1, '2020-03-05', '2020-03-06', 'Requested', '201517119', 'Carlo Angeles', '201510576', 'Approved', NULL, 'Pending', NULL, NULL),
-(13, '2020-03-07', 'Vacation Leave', 'local', 2, '2020-03-11', '2020-03-13', 'Requested', '201517119', 'Carlo Angeles', '201510576', 'Approved', NULL, 'Pending', NULL, NULL),
-(14, '2020-03-07', 'Vacation Leave', 'local', 4, '2020-03-10', '2020-03-13', 'Requested', '201517119', 'Carlo Angeles', '201510576', 'Pending', NULL, 'Pending', NULL, NULL),
-(15, '2020-03-07', 'Vacation Leave', 'local', 5, '2020-03-10', '2020-03-14', 'Requested', '201517119', 'Carlo Angeles', '201510576', 'Pending', NULL, 'Pending', NULL, NULL),
-(16, '2020-03-07', 'Vacation Leave', 'local', 5, '2020-03-10', '2020-03-14', 'Requested', '201517119', 'Carlo Angeles', '201510576', 'Pending', NULL, 'Pending', NULL, NULL),
-(17, '2020-03-07', 'Vacation Leave', 'local', 5, '2020-03-10', '2020-03-14', 'Requested', '201517119', 'Carlo Angeles', '201510576', 'Pending', NULL, 'Pending', NULL, NULL),
-(18, '2020-03-07', 'Vacation Leave', 'local', 4, '2020-03-10', '2020-03-13', 'Requested', '201517119', 'Carlo Angeles', '201510576', 'Pending', NULL, 'Pending', NULL, NULL),
-(19, '2020-03-07', 'Vacation Leave', 'local', 3, '2020-03-11', '2020-03-13', 'Requested', '201517119', 'Carlo Angeles', '201510576', 'Pending', NULL, 'Pending', NULL, NULL),
-(20, '2020-03-07', 'Vacation Leave', 'local', 4, '2020-03-10', '2020-03-13', 'Requested', '201517119', 'Carlo Angeles', '201510576', 'Pending', NULL, 'Pending', NULL, NULL),
-(21, '2020-03-07', 'Vacation Leave', 'local', 4, '2020-03-10', '2020-03-13', 'Requested', '201517119', 'Carlo Angeles', '201510576', 'Pending', NULL, 'Pending', NULL, NULL),
-(22, '2020-03-07', 'Vacation Leave', 'local', 3, '2020-03-10', '2020-03-12', 'Requested', '201517119', 'Carlo Angeles', '201510576', 'Pending', NULL, 'Pending', NULL, NULL),
-(23, '2020-03-07', 'Vacation Leave', 'local', 3, '2020-03-10', '2020-03-12', 'Requested', '201517119', 'Carlo Angeles', '201510576', 'Pending', NULL, 'Pending', NULL, NULL),
-(24, '2020-03-07', 'Vacation Leave', 'local', 4, '2020-03-10', '2020-03-13', 'Requested', '201517119', 'Carlo Angeles', '201510576', 'Pending', NULL, 'Pending', NULL, NULL),
-(25, '2020-03-07', 'Vacation Leave', 'local', 5, '2020-03-10', '2020-03-14', 'Requested', '201517119', 'Carlo Angeles', '201510576', 'Pending', NULL, 'Pending', NULL, NULL),
-(26, '2020-03-09', 'Vacation Leave', 'international', 20, '2020-03-12', '2020-03-31', 'Requested', '201610456', 'Emmanuel Justin Atienza', '201510576', 'Pending', NULL, 'Pending', NULL, NULL),
-(27, '2020-03-09', 'Sick Leave', 'international', 217, '2020-03-01', '2020-10-14', 'Not Requested', '201610456', 'Emmanuel Justin Atienza', '201510576', 'Pending', NULL, 'Pending', NULL, NULL),
-(28, '2020-03-11', 'Sick Leave', 'local', 2, '2020-03-10', '2020-03-11', 'Requested', '201517119', 'Carlo Angeles', '201510576', 'Pending', NULL, 'Pending', NULL, NULL),
-(29, '2020-03-11', 'Vacation Leave', 'local', 1, '2020-03-14', '2020-03-14', 'Requested', '201517119', 'Carlo Angeles', '201510576', 'Pending', NULL, 'Pending', NULL, NULL);
+INSERT INTO `leaverequest` (`leaverequestID`, `date_requested`, `leaverequestType`, `leaverequestLocation`, `leaverequestNoOfDays`, `leaverequestStartDate`, `leaverequestEndDate`, `leaverequestCommutation`, `emp_id`, `leaverequestEmployeeName`, `emp_supervisor`, `emp_supervisor_response`, `emp_supervisor_remarks`, `date_approval`, `hr_status`, `hr_remarks`, `respondedby_hr`) VALUES
+(11, '2020-03-03', 'Vacation Leave', 'local', 4, '2020-03-06', '2020-03-10', 'Requested', '201517119', 'Carlo Angeles', '201510576', 'Disapproved', 'because ethan is a girl', '0000-00-00', 'Pending', NULL, NULL),
+(12, '2020-03-07', 'Sick Leave', 'local', 1, '2020-03-05', '2020-03-06', 'Requested', '201517119', 'Carlo Angeles', '201510576', 'Approved', NULL, '0000-00-00', 'Pending', NULL, NULL),
+(13, '2020-03-07', 'Vacation Leave', 'local', 2, '2020-03-11', '2020-03-13', 'Requested', '201517119', 'Carlo Angeles', '201510576', 'Approved', NULL, '0000-00-00', 'Pending', NULL, NULL),
+(14, '2020-03-07', 'Vacation Leave', 'local', 4, '2020-03-10', '2020-03-13', 'Requested', '201517119', 'Carlo Angeles', '201510576', 'Approved', NULL, '2020-04-23', 'Pending', NULL, NULL),
+(15, '2020-03-07', 'Vacation Leave', 'local', 5, '2020-03-10', '2020-03-14', 'Requested', '201517119', 'Carlo Angeles', '201510576', 'Disapproved', '', '0000-00-00', 'Pending', NULL, NULL),
+(16, '2020-03-07', 'Vacation Leave', 'local', 5, '2020-03-10', '2020-03-14', 'Requested', '201517119', 'Carlo Angeles', '201510576', 'Disapproved', '', '0000-00-00', 'Pending', NULL, NULL),
+(17, '2020-03-07', 'Vacation Leave', 'local', 5, '2020-03-10', '2020-03-14', 'Requested', '201517119', 'Carlo Angeles', '201510576', 'Disapproved', '', '2020-04-24', 'Pending', NULL, NULL),
+(18, '2020-03-07', 'Vacation Leave', 'local', 4, '2020-03-10', '2020-03-13', 'Requested', '201517119', 'Carlo Angeles', '201510576', 'Pending', NULL, '0000-00-00', 'Pending', NULL, NULL),
+(19, '2020-03-07', 'Vacation Leave', 'local', 3, '2020-03-11', '2020-03-13', 'Requested', '201517119', 'Carlo Angeles', '201510576', 'Pending', NULL, '0000-00-00', 'Pending', NULL, NULL),
+(20, '2020-03-07', 'Vacation Leave', 'local', 4, '2020-03-10', '2020-03-13', 'Requested', '201517119', 'Carlo Angeles', '201510576', 'Pending', NULL, '0000-00-00', 'Pending', NULL, NULL),
+(21, '2020-03-07', 'Vacation Leave', 'local', 4, '2020-03-10', '2020-03-13', 'Requested', '201517119', 'Carlo Angeles', '201510576', 'Pending', NULL, '0000-00-00', 'Pending', NULL, NULL),
+(22, '2020-03-07', 'Vacation Leave', 'local', 3, '2020-03-10', '2020-03-12', 'Requested', '201517119', 'Carlo Angeles', '201510576', 'Pending', NULL, '0000-00-00', 'Pending', NULL, NULL),
+(23, '2020-03-07', 'Vacation Leave', 'local', 3, '2020-03-10', '2020-03-12', 'Requested', '201517119', 'Carlo Angeles', '201510576', 'Pending', NULL, '0000-00-00', 'Pending', NULL, NULL),
+(24, '2020-03-07', 'Vacation Leave', 'local', 4, '2020-03-10', '2020-03-13', 'Requested', '201517119', 'Carlo Angeles', '201510576', 'Pending', NULL, '0000-00-00', 'Pending', NULL, NULL),
+(25, '2020-03-07', 'Vacation Leave', 'local', 5, '2020-03-10', '2020-03-14', 'Requested', '201517119', 'Carlo Angeles', '201510576', 'Pending', NULL, '0000-00-00', 'Pending', NULL, NULL),
+(26, '2020-03-09', 'Vacation Leave', 'international', 20, '2020-03-12', '2020-03-31', 'Requested', '201610456', 'Emmanuel Justin Atienza', '201510576', 'Disapproved', '', '0000-00-00', 'Pending', NULL, NULL),
+(27, '2020-03-09', 'Sick Leave', 'international', 217, '2020-03-01', '2020-10-14', 'Not Requested', '201610456', 'Emmanuel Justin Atienza', '201510576', 'Pending', NULL, '0000-00-00', 'Pending', NULL, NULL),
+(28, '2020-03-11', 'Sick Leave', 'local', 2, '2020-03-10', '2020-03-11', 'Requested', '201517119', 'Carlo Angeles', '201510576', 'Pending', NULL, '0000-00-00', 'Pending', NULL, NULL),
+(29, '2020-03-11', 'Vacation Leave', 'local', 1, '2020-03-14', '2020-03-14', 'Requested', '201517119', 'Carlo Angeles', '201510576', 'Pending', NULL, '0000-00-00', 'Pending', NULL, NULL),
+(30, '2020-04-23', 'Vacation Leave', 'local', 4, '2020-04-26', '2020-04-29', 'Requested', '1', 'Hernando Robles', '1', 'Approved', NULL, NULL, 'Approved', NULL, NULL),
+(31, '2020-04-23', 'Vacation Leave', 'local', 2, '2020-04-26', '2020-04-27', 'Requested', '1', 'Hernando Robles', '1', 'Approved', NULL, '2020-04-23', 'Approved', NULL, NULL),
+(32, '2020-04-23', 'Sick Leave', 'local', 4, '2020-04-13', '2020-04-16', 'Requested', '201517119', 'Carlo Angeles', '201510576', 'Pending', NULL, NULL, 'Pending', NULL, NULL),
+(33, '2020-04-23', 'Sick Leave', 'local', 2, '2020-04-13', '2020-04-14', 'Requested', '201517119', 'Carlo Angeles', '201510576', 'Pending', NULL, NULL, 'Pending', NULL, NULL),
+(54, '2020-04-24', 'Vacation Leave', 'local', 4, '2020-04-27', '2020-04-30', 'Requested', '1', 'Hernando Robles', '1', 'Approved', NULL, '2020-04-24', 'Approved', NULL, NULL),
+(55, '2020-04-24', 'Vacation Leave', 'local', 3, '2020-04-28', '2020-04-30', 'Requested', '1', 'Hernando Robles', '1', 'Approved', NULL, '2020-04-24', 'Approved', NULL, NULL),
+(56, '2020-04-24', 'Vacation Leave', 'local', 4, '2020-05-03', '2020-05-06', 'Requested', '1', 'Hernando Robles', '1', 'Approved', NULL, '2020-04-24', 'Approved', NULL, NULL),
+(57, '2020-04-24', 'Vacation Leave', 'local', 9, '2020-05-12', '2020-05-20', 'Requested', '1', 'Hernando Robles', '1', 'Approved', NULL, '2020-04-24', 'Approved', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -738,7 +754,7 @@ INSERT INTO `tbl_college` (`college_code`, `college_abrev`, `college_desc`) VALU
 (26, 'OUP', 'OFFICE OF THE UNIVERSITY PRESIDENT'),
 (27, 'FINANCE', 'FINANCE'),
 (28, 'MARAGONDON', 'MARAGONDON'),
-(29, 'OVPPD', 'OFFICE OF THE UNIVERSITY PRESIDENT'),
+(29, 'OVPPD', 'OFFICE OF THE VICE PRESIDENT FOR PLANNING AND DEVELOPMENT'),
 (30, 'NCRDEC', 'NCRDEC'),
 (31, 'PPS', 'PHYSICAL PLANT SERVICES'),
 (32, 'UCSS', 'UNIVERSITY CIVIL SECURITY SERVICES'),
@@ -749,7 +765,7 @@ INSERT INTO `tbl_college` (`college_code`, `college_abrev`, `college_desc`) VALU
 (37, 'GAD', 'GENDER AND DEVELOPMENT'),
 (38, 'OFFICE OF THE UNIVERSITY SPORTS DIRECTOR', 'OFFICE OF THE UNIVERSITY SPORTS DIRECTOR'),
 (39, 'UNIVERSITY HEALTH SERVICES', 'UNIVERSITY HEALTH SERVICES'),
-(40, 'OVPPD', 'OFFICE OF THE VICE PRESIDENT FOR PLANNING AND DEVELOPMENT');
+(40, 'HRDO', 'Human Resources Department Office');
 
 -- --------------------------------------------------------
 
@@ -902,8 +918,8 @@ CREATE TABLE `tbl_emp_info` (
   `branch_code` int(10) DEFAULT NULL,
   `vl_bal` int(10) DEFAULT NULL,
   `sl_bal` int(10) DEFAULT NULL,
-  `paternity_bal` int(10) DEFAULT NULL,
-  `maternity_bal` int(10) DEFAULT NULL,
+  `ml_bal` int(10) DEFAULT NULL,
+  `spl_bal` int(10) DEFAULT NULL,
   `college_code` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -911,12 +927,14 @@ CREATE TABLE `tbl_emp_info` (
 -- Dumping data for table `tbl_emp_info`
 --
 
-INSERT INTO `tbl_emp_info` (`id`, `emp_id`, `is_active`, `last_name`, `first_name`, `middle_name`, `extension_name`, `email_add`, `dept_code`, `position_code`, `branch_code`, `vl_bal`, `sl_bal`, `paternity_bal`, `maternity_bal`, `college_code`) VALUES
+INSERT INTO `tbl_emp_info` (`id`, `emp_id`, `is_active`, `last_name`, `first_name`, `middle_name`, `extension_name`, `email_add`, `dept_code`, `position_code`, `branch_code`, `vl_bal`, `sl_bal`, `ml_bal`, `spl_bal`, `college_code`) VALUES
 (1, 201610456, 0, 'Atienza', 'Emmanuel Justin', 'A', '', 'Ejatienza01@gmail.com', 19, 1, NULL, 15, 30, 7, NULL, 5),
 (2, 201416386, 0, 'Arevalo', 'Ethan Rei', 'A', NULL, 'ethanreiarevalo@gmail.com', 77, 1, NULL, 8, 10, NULL, 40, 24),
 (3, 201311111, NULL, 'Consulta', 'John Bennette', 'M', NULL, 'chachamanzero@gmail.com', 77, NULL, NULL, NULL, NULL, NULL, NULL, 24),
-(4, 201517119, NULL, 'Angeles', 'Carlo', 'H', NULL, 'munggohan@gmail.com', 19, 1, NULL, 5, 5, NULL, NULL, 5),
-(7, 201510576, 1, 'Aguilar', 'Jan Anthony', 'Calzado', 'none', 'toniaguilar14@gmail.com', 19, 1, 5, 5, 3, 0, 0, 5);
+(4, 201517119, NULL, 'Angeles', 'Carlo', 'H', NULL, 'munggohan@gmail.com', 19, 1, NULL, 1, 5, NULL, NULL, 5),
+(7, 201510576, 1, 'Aguilar', 'Jan Anthony', 'Calzado', 'none', 'toniaguilar14@gmail.com', 19, 1, 5, 5, 3, 0, 0, 5),
+(8, 2, 0, 'Arevalo', 'Ma Angelica', 'A', NULL, 'nameusercarlo@gmail.com', 1, 1, 23, 50, 7, 0, 50, 23),
+(9, 1, 0, 'Robles', 'Hernando', 'D', NULL, 'chachamanzero@gmail.com', 1, 1, 26, 12, 14, 14, 0, 26);
 
 -- --------------------------------------------------------
 
@@ -971,11 +989,12 @@ INSERT INTO `tbl_heirarchy` (`heirarchy_id`, `college_code`, `college_abrev`, `s
 (32, 27, 'FINANCE', 24, 'OVPASS'),
 (33, 25, 'OVPEBA', 26, 'OUP'),
 (34, 29, 'OVPPD', 26, 'OUP'),
-(35, 40, 'OVPPD', 26, 'OUP'),
+(35, 40, 'HRDO', 26, 'OUP'),
 (36, 35, 'INSTITUTIONAL DEVELOPMENT OFFICE', 29, 'OVPPD'),
 (37, 35, 'INSTITUTIONAL DEVELOPMENT OFFICE', 40, 'OVPPD'),
 (38, 37, 'GAD', 26, 'OUP'),
-(39, 20, 'GS/OLC', 26, 'OUP');
+(39, 20, 'GS/OLC', 26, 'OUP'),
+(40, 36, 'STARRDEC', 22, 'OVPRE');
 
 -- --------------------------------------------------------
 
@@ -1202,19 +1221,19 @@ ALTER TABLE `tbl_position`
 -- AUTO_INCREMENT for table `accounts`
 --
 ALTER TABLE `accounts`
-  MODIFY `accountID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `accountID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `lc_bal_log`
 --
 ALTER TABLE `lc_bal_log`
-  MODIFY `logID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `logID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `leaverequest`
 --
 ALTER TABLE `leaverequest`
-  MODIFY `leaverequestID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+  MODIFY `leaverequestID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=58;
 
 --
 -- AUTO_INCREMENT for table `tbl_college`
@@ -1232,13 +1251,13 @@ ALTER TABLE `tbl_department`
 -- AUTO_INCREMENT for table `tbl_emp_info`
 --
 ALTER TABLE `tbl_emp_info`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `tbl_heirarchy`
 --
 ALTER TABLE `tbl_heirarchy`
-  MODIFY `heirarchy_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
+  MODIFY `heirarchy_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
 
 --
 -- AUTO_INCREMENT for table `tbl_position`
