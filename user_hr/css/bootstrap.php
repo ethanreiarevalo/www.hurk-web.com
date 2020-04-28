@@ -105,6 +105,8 @@
             display:block;
             border-radius:5px;
         }
+
+       
         @media only screen and (min-width:992px){
             html,body{
                 overflow:hidden;

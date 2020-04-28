@@ -29,6 +29,23 @@
    
     <script src="https://kit.fontawesome.com/30e125d372.js" crossorigin="anonymous"></script>
     <script src="../js/jquery-3.4.1.js"></script>
+    <style>
+        .confirm_open{
+            height:100vh;
+            width:100%;
+            position:absolute;
+            top:0;
+            left:0;
+            background: #0009; 
+            display:flex;
+            justify-content:center;
+            align-items:center;
+        }
+        .confirm_close{
+            display:none;
+        }
+        
+    </style>
 </head>
 <body>
      <header>
@@ -80,12 +97,39 @@
                         </p class="my-4">
                         <hr>
                         <div class="d-flex justify-content-center">
-                            <button class="btn btn-danger w-25">Reset</button>
+                            <button id="open" class="btn btn-danger w-25">Reset</button>
                         </div>
                     </div>
-                    
                 </div>
             </div>
         </div>
+        <div id="confirm" class="confirm_close">
+            <div id="conf_cont" class="text-center bg-white p-4">
+                Are you sure you want to reset?
+                <div class="d-flex justify-content-center">
+                    <form action="reset_all.php" class="m-3">
+                        <button class="btn btn-success">Yes</button>
+                    </form>
+                    <button id="close" class="btn btn-danger m-3">No</button>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+        <script>
+            $(document).ready(function(){
+                $("#open").click(function(){
+                    $("#confirm").removeClass("confirm_close");
+                    $("#confirm").addClass("confirm_open");
+                });
+            });
+            $(document).ready(function(){
+                $("#close").click(function(){
+                    $("#confirm").removeClass("confirm_open");
+                    $("#confirm").addClass("confirm_close");
+                });
+            });
+        </script>
+        <?php include('js/script.php')?>
 </body>
 </html>
