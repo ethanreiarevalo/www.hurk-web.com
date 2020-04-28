@@ -22,7 +22,7 @@
     //     $UpdateNonAdmin = mysqli_query($connection,"UPDATE accounts SET `Type` = 'admin', `empl_password`='$pw' Where `emp_id` = '$Id'");
     //     $UpdateAdmin =  mysqli_query($connection,"UPDATE accounts SET `Type` = 'non-admin' Where `emp_id` = '$a_Id'");
     // }
-    $selectadmin = "SELECT emp_id,department,`Type` FROM accounts WHERE `Type` = 'admin' && department = 'HRDO'";
+    $selectadmin = "SELECT emp_id,College,`Type` FROM accounts WHERE `Type` = 'admin' && College = 'HRDO'";
     $result = mysqli_query($connection,$selectadmin);
     $row = mysqli_fetch_array($result);
     $empid = $row['emp_id'];

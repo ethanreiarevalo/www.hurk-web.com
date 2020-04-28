@@ -79,13 +79,13 @@
                         <div class="row justify-content-center">
                             <div class="row input-group border-bottom w-75 justify-content-center align-items-center">
                                 <i class="fa fa-search"></i>
-                                <input type="text" name="search" id="search_text" class="p-2 form-control mx-1 border-0" placeholder="Search by Name, Employee ID, College or Type...">
+                                <input type="text" name="search" id="search_text" class="p-2 form-control mx-1 border-0" placeholder="Search by Name...">
                             </div>
                         </div>
                     </div>
                     <div class="text-center table-container table table-responsive d-block">
                     <?php
-                    $reports_table_sql = "SELECT tbl_emp_info.emp_id, CONCAT(tbl_emp_info.first_name,' ', tbl_emp_info.last_name) AS emp_name, accounts.Type, accounts.College, accounts.hr_type, accounts.department FROM tbl_emp_info INNER JOIN accounts ON tbl_emp_info.emp_id = accounts.emp_id WHERE accounts.department = 'HRDO' && accounts.hr_type = 'non-admin'";
+                    $reports_table_sql = "SELECT tbl_emp_info.emp_id, CONCAT(tbl_emp_info.first_name,' ', tbl_emp_info.last_name) AS emp_name, accounts.Type, accounts.College FROM tbl_emp_info INNER JOIN accounts ON tbl_emp_info.emp_id = accounts.emp_id WHERE accounts.College = 'HRDO' && accounts.Type = 'non-admin'";
                     $reports_table_result = mysqli_query($connection,$reports_table_sql);
                     if($reports_table_result -> num_rows > 0){?>
                         <table class="table table-bordered table-striped table-hover w-75 m-auto" id="table-data">
@@ -100,7 +100,7 @@
                                     $empid = $row['emp_id'];
                                     $Name = $row['emp_name'];
                                     $college = $row['College'];
-                                    $type = $row['hr_type'];
+                                    $type = $row['Type'];
                                     
                             ?>
                                 <tr>
@@ -116,9 +116,9 @@
                                                 if($type == "admin" ){
                                                     echo"<label>Admin</label>";
                                                 }
-                                                else if($type == "sub-admin"){
-                                                    echo "<label>Sub-Admin</label>";
-                                                }
+                                                // else if($type == "sub-admin"){
+                                                //     echo "<label>Sub-Admin</label>";
+                                                // }
                                                 else if($type == "non-admin"){
                                                     echo"<button onclick='modalOpen()' class = 'btn btn-danger text-white'>Non-Admin</button>";
                                                 }
@@ -137,20 +137,20 @@
                                             //         echo "<label class='text-danger'>Non-Admin</label>";
                                             //     }
                                             // }
-                                            else if($accountType == "non-admin"){
-                                                if($type == "admin"){
-                                                    echo "<label>Admin</label>";
-                                                }
-                                                else if($type == "sub-admin"){
-                                                    echo "<label>Sub-Admin</label>";
-                                                }
-                                                else if($type == "non-admin" && $college != "HRDO"){
-                                                    echo"<button onclick='modalOpen()' class = 'btn btn-danger text-white'>Non-Admin</button>";
-                                                }
-                                                else if($type == "non-admin" && $college == "HRDO"){
-                                                    echo "<label class = 'text-danger'>Non-Admin</label>";
-                                                }
-                                            }
+                                            // else if($accountType == "non-admin"){
+                                            //     if($type == "admin"){
+                                            //         echo "<label>Admin</label>";
+                                            //     }
+                                            //     else if($type == "sub-admin"){
+                                            //         echo "<label>Sub-Admin</label>";
+                                            //     }
+                                            //     else if($type == "non-admin" && $college != "HRDO"){
+                                            //         echo"<button onclick='modalOpen()' class = 'btn btn-danger text-white'>Non-Admin</button>";
+                                            //     }
+                                            //     else if($type == "non-admin" && $college == "HRDO"){
+                                            //         echo "<label class = 'text-danger'>Non-Admin</label>";
+                                            //     }
+                                            // }
                                             // if($type == "admin"){
                                             //     echo"Admin";
                                             // }
@@ -199,7 +199,7 @@
                 //
                 $.ajax({
                     //url or file where the action or query takes place
-                    url:'actionadmin.php',
+                    url:'searchhr.php',
                     //type of methods use post or get, post recomended for more secure passing of data, get for more faster but less secure
                     method:'post',
                     // passes the data input from search variable to query to use $_post['query'] in action page
