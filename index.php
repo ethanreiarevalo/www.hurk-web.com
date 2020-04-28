@@ -6,11 +6,11 @@
         $ID_No = $connection->real_escape_string($_POST['ID_No']);
         $Emp_Pass = $connection->real_escape_string($_POST['Emp_Pass']);
 //test
-        $loginquery = "Select emp_id, Type, College, department, hr_type, empl_password from accounts where emp_id = '$ID_No' && empl_password = '$Emp_Pass'";
+        $loginquery = "Select emp_id, Type, College, empl_password from accounts where emp_id = '$ID_No' && empl_password = '$Emp_Pass'";
         $result = mysqli_query($connection,$loginquery);
         $row = mysqli_fetch_array($result);
-        //For all non-hr
-        if($row['emp_id']==$ID_No && $row['empl_password'] == $Emp_Pass && $row['Type'] == "admin" && $row['department'] != "HRDO"){
+        //For all non-hr but admin
+        if($row['emp_id']==$ID_No && $row['empl_password'] == $Emp_Pass && $row['Type'] == "admin" && $row['College'] != "HRDO"){
             $_SESSION['ID_No'] = $row['emp_id'];
             $_SESSION['PW'] = $row['empl_password'];
             $_SESSION['Type'] = $row['Type'];
@@ -18,18 +18,8 @@
             header("Location: user_supervisors/dashboard.php");
             exit;
         }
-        //For all hr
-        //if admin in ovpass and non in hrdo
-        else if($row['emp_id']==$ID_No && $row['empl_password'] == $Emp_Pass && $row['Type'] == "admin" && $row['hr_type'] == "non-admin" && $row['department'] == "HRDO"){
-            $_SESSION['ID_No'] = $row['emp_id'];
-            $_SESSION['PW'] = $row['empl_password'];
-            $_SESSION['Type'] = $row['Type'];
-            $_SESSION['college'] = $row['College'];
-            header("Location: user_supervisors/dashboard.php");
-            exit;
-        }
-        //if non admin in ovpass but admin in hrdo
-        else if($row['emp_id']==$ID_No && $row['empl_password'] == $Emp_Pass && $row['Type'] == "non-admin" && $row['hr_type'] == "admin" && $row['department'] == "HRDO"){
+        //for hrdo admin
+        else if($row['emp_id']==$ID_No && $row['empl_password'] == $Emp_Pass && $row['Type'] == "admin" && $row['College'] == "HRDO"){
             $_SESSION['ID_No'] = $row['emp_id'];
             $_SESSION['PW'] = $row['empl_password'];
             $_SESSION['Type'] = $row['Type'];
@@ -37,7 +27,7 @@
             header("Location: user_hr/admins.php");
             exit;
         }
-        else if($row['emp_id']==$ID_No && $row['empl_password'] == $Emp_Pass && $row['Type'] == "non-admin" && $row['department'] == "HRDO" || $row['department'] != "HRDO"){
+        else if($row['emp_id']==$ID_No && $row['empl_password'] == $Emp_Pass && $row['Type'] == "non-admin" && $row['College'] == "HRDO" || $row['College'] != "HRDO"){
             $loginerror = "You are not authorized to enter this site.";
         }
         else{
