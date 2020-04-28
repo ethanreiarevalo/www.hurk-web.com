@@ -85,7 +85,7 @@
                     </div>
                     <div class="text-center table-container table table-responsive d-block">
                     <?php
-                    $reports_table_sql = "SELECT tbl_emp_info.emp_id, CONCAT(tbl_emp_info.first_name,' ', tbl_emp_info.last_name) AS emp_name, accounts.Type, accounts.College FROM tbl_emp_info INNER JOIN accounts ON tbl_emp_info.emp_id = accounts.emp_id";
+                    $reports_table_sql = "SELECT tbl_emp_info.emp_id, CONCAT(tbl_emp_info.first_name,' ', tbl_emp_info.last_name) AS emp_name, accounts.Type, accounts.College FROM tbl_emp_info INNER JOIN accounts ON tbl_emp_info.emp_id = accounts.emp_id WHERE accounts.College <> 'HRDO'";
                     $reports_table_result = mysqli_query($connection,$reports_table_sql);
                     if($reports_table_result -> num_rows > 0){?>
                         <table class="table table-bordered table-striped table-hover w-75 m-auto" id="table-data">

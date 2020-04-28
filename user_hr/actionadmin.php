@@ -13,7 +13,7 @@
             $request_table_sql = "SELECT tbl_emp_info.emp_id, CONCAT(tbl_emp_info.first_name,' ', tbl_emp_info.last_name) AS emp_name, accounts.Type, accounts.College FROM tbl_emp_info INNER JOIN accounts ON tbl_emp_info.emp_id = accounts.emp_id WHERE tbl_emp_info.emp_id LIKE '%$search%' OR CONCAT(tbl_emp_info.first_name,' ', tbl_emp_info.last_name) LIKE '%$search%' OR accounts.College LIKE '%$search%' OR accounts.Type LIKE '$search%'";
         }
         else{
-            $request_table_sql = "SELECT tbl_emp_info.emp_id, CONCAT(tbl_emp_info.first_name,' ', tbl_emp_info.last_name) AS emp_name, accounts.Type, accounts.College FROM tbl_emp_info INNER JOIN accounts ON tbl_emp_info.emp_id = accounts.emp_id"; 
+            $request_table_sql = "SELECT tbl_emp_info.emp_id, CONCAT(tbl_emp_info.first_name,' ', tbl_emp_info.last_name) AS emp_name, accounts.Type, accounts.College FROM tbl_emp_info INNER JOIN accounts ON tbl_emp_info.emp_id = accounts.emp_id WHERE accounts.College <> 'HRDO'"; 
         }
     }
     
