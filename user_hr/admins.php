@@ -39,7 +39,7 @@
     </header>
     <section id="wrapper">
         <div class="row">
-            <div class="side-bar col-xl-3 col-lg-4">
+            <div class="side-bar col-xl-3 col-lg-4 mb-5">
                 <div class="sb py-3 mt-5">
                     <h5 class="ml-4">Menu</h5>
                     <a name="link" href="admins.php">
@@ -58,6 +58,12 @@
                         <div class="side-link text-dark p-3 mt-2">
                             <i class="fas fa-table ml-4"></i>
                             Reports
+                        </div>
+                    </a>
+                    <a name="link" href="reset.php">
+                        <div class="side-link text-dark p-3 mt-2">
+                            <i class="fas fa-sync-alt ml-4"></i>
+                            Reset ML & SPL
                         </div>
                     </a>
                 </div>
