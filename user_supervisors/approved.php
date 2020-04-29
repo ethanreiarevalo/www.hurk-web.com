@@ -12,10 +12,17 @@
     $startdate = "";
     $enddate = "";
     $days = 0;
+    //prev credit var
     $prev_slc = 0;
     $prev_vlc = 0;
+    $prev_mlc = 0;
+    $prev_splc = 0;
+    //after credit var
     $after_slc = 0;
     $after_vlc = 0;
+    $after_mlc = 0;
+    $after_splc = 0;
+    //leave type var
     $lc_type = "";
     //get previous leave credits
     $lc_details = "SELECT * FROM tbl_emp_info WHERE emp_id = '$leaverequestEmployeeID'";
@@ -24,6 +31,8 @@
     if($lc_d_row['emp_id'] == $leaverequestEmployeeID){
         $prev_vlc = $lc_d_row['vl_bal']; 
         $prev_slc = $lc_d_row['sl_bal'];
+        $prev_mlc = $lc_d_row['ml_bal'];
+        $prev_splc = $lc_d_row['spl_bal'];
     }
     // getting leave request details
     $leaveDetails = "SELECT * FROM leaverequest WHERE leaverequestID = '$leaverequestID'";
@@ -79,6 +88,7 @@
     else{
         // approving request, condition if vl or sl
         $approveRequest = mysqli_query($connection, "UPDATE leaverequest set `emp_supervisor_response` = 'Approved', `date_approval` = '$date' where `leaverequestID` = '$leaverequestID'");
+        //Vacation Leave
         if($requestType == "Vacation Leave"){
             //update credit
             if($updateCredit = mysqli_query($connection,"UPDATE tbl_emp_info SET `vl_bal` = (vl_bal-'$days') WHERE emp_id = $leaverequestEmployeeID")){
@@ -89,12 +99,15 @@
                 if($after_row['emp_id'] == $leaverequestEmployeeID){
                     $after_vlc = $after_row['vl_bal']; 
                     $after_slc = $after_row['sl_bal'];
+                    $after_mlc = $after_row['ml_bal']; 
+                    $after_splc = $after_row['spl_bal'];
                 }
                 //insert the prev credit and after credit to logs
                 $insert_log = "INSERT INTO lc_bal_log VALUES(null, '$leaverequestEmployeeID', '$lc_type', '$prev_vlc', '$after_vlc', '$date')";
                 mysqli_query($connection, $insert_log);
             }
         }
+        //Sick Leave
         else if($requestType == "Sick Leave"){
             //update credit
             $updateCredit = mysqli_query($connection,"UPDATE tbl_emp_info SET `sl_bal` = (sl_bal-'$days') WHERE emp_id = $leaverequestEmployeeID");
@@ -105,9 +118,47 @@
             if($after_row['emp_id'] == $leaverequestEmployeeID){
                 $after_vlc = $after_row['vl_bal']; 
                 $after_slc = $after_row['sl_bal'];
+                $after_mlc = $after_row['ml_bal']; 
+                $after_splc = $after_row['spl_bal'];
             }
             //insert the prev credit and after credit to logs
             $insert_log = "INSERT INTO lc_bal_log VALUES(null, '$leaverequestEmployeeID', '$lc_type', '$prev_slc', '$after_slc', '$date')";
+            mysqli_query($connection, $insert_log);
+        }
+        //Mandatory Leave
+        else if($requestType == "Mandatory Leave"){
+            //update credit
+            $updateCredit = mysqli_query($connection,"UPDATE tbl_emp_info SET `ml_bal` = (ml_bal-'$days') WHERE emp_id = $leaverequestEmployeeID");
+            //get updated leave credits
+            $after_details = "SELECT * FROM tbl_emp_info WHERE emp_id = '$leaverequestEmployeeID'";
+            $after_result = mysqli_query($connection, $after_details);
+            $after_row = mysqli_fetch_array($after_result);
+            if($after_row['emp_id'] == $leaverequestEmployeeID){
+                $after_vlc = $after_row['vl_bal']; 
+                $after_slc = $after_row['sl_bal'];
+                $after_mlc = $after_row['ml_bal']; 
+                $after_splc = $after_row['spl_bal'];
+            }
+            //insert the prev credit and after credit to logs
+            $insert_log = "INSERT INTO lc_bal_log VALUES(null, '$leaverequestEmployeeID', '$lc_type', '$prev_mlc', '$after_mlc', '$date')";
+            mysqli_query($connection, $insert_log);
+        }
+        //Special Priviledge Leave credits
+        else if($requestType == "Special Priviledge Leave"){
+            //update credit
+            $updateCredit = mysqli_query($connection,"UPDATE tbl_emp_info SET `spl_bal` = (spl_bal-'$days') WHERE emp_id = $leaverequestEmployeeID");
+            //get updated leave credits
+            $after_details = "SELECT * FROM tbl_emp_info WHERE emp_id = '$leaverequestEmployeeID'";
+            $after_result = mysqli_query($connection, $after_details);
+            $after_row = mysqli_fetch_array($after_result);
+            if($after_row['emp_id'] == $leaverequestEmployeeID){
+                $after_vlc = $after_row['vl_bal']; 
+                $after_slc = $after_row['sl_bal'];
+                $after_mlc = $after_row['ml_bal']; 
+                $after_splc = $after_row['spl_bal'];
+            }
+            //insert the prev credit and after credit to logs
+            $insert_log = "INSERT INTO lc_bal_log VALUES(null, '$leaverequestEmployeeID', '$lc_type', '$prev_mlc', '$after_mlc', '$date')";
             mysqli_query($connection, $insert_log);
         }
         // getting the super visor details then email to requester.
