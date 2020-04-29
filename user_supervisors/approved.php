@@ -144,7 +144,7 @@
             mysqli_query($connection, $insert_log);
         }
         //Special Priviledge Leave credits
-        else if($requestType == "Special Priviledge Leave"){
+        else if($requestType == "Special Privilege Leave"){
             //update credit
             $updateCredit = mysqli_query($connection,"UPDATE tbl_emp_info SET `spl_bal` = (spl_bal-'$days') WHERE emp_id = $leaverequestEmployeeID");
             //get updated leave credits

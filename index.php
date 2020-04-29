@@ -42,6 +42,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>HURK Web</title>
+    <link rel="icon" href="images/logohurk.png" sizes="32x32" type="image/png">
     <script src="https://kit.fontawesome.com/30e125d372.js" crossorigin="anonymous"></script>
     <?php include('css/bootstrap.php');?>
     <style>
