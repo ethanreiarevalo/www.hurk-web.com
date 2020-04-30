@@ -68,13 +68,19 @@
                             HRDO Admin
                         </div>
                     </a>
+                    <a name="link" href="request.php">
+                        <div class="side-link text-dark p-3 mt-2">
+                            <i class="fas fa-scroll ml-4"></i>
+                            Requests
+                        </div>
+                    </a>
                     <a name="link" href="reports.php">
                         <div class="side-link text-dark p-3 mt-2">
                             <i class="fas fa-table ml-4"></i>
                             Reports
                         </div>
                     </a>
-                    <a name="link" href="reports.php">
+                    <a name="link" href="reset.php">
                         <div class="side-link-active text-success p-3 mt-2">
                             <i class="fas fa-sync-alt ml-4"></i>
                             Reset ML & SPL

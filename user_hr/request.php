@@ -25,11 +25,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>HURK | Requests</title>
+    <title>HURK | Dashboard</title>
     <?php include('css/bootstrap.php');?>
-    <style>
-        
-    </style>
+   
+    <script src="https://kit.fontawesome.com/30e125d372.js" crossorigin="anonymous"></script>
+    <script src="../js/jquery-3.4.1.js"></script>
+
 </head>
 <body>
     <header>
@@ -37,19 +38,40 @@
     </header>
     <section id="wrapper">
         <div class="row">
-            <div class="side-bar col-xl-3 col-lg-4">
-                <a name="link" href="dashboard.php">
-                    <div class="side-link text-center text-white p-3 mt-5">Dashboard</div>
-                </a>
-                <a name="link" href="request.php">
-                    <div class="side-link-active text-center text-white p-3 mt-2">Requests</div>
-                </a>
-                <a href="admins.php">
-                    <div class="side-link text-center text-white p-3 mt-2">Admins</div>
-                </a>
-                <a name="link" href="reports.php">
-                    <div class="side-link text-center text-white p-3 mt-2">Reports</div>
-                </a>
+        <div class="side-bar col-xl-3 col-lg-4 mb-5">
+                <div class="sb py-3 mt-5">
+                    <h5 class="ml-4">Menu</h5>
+                    <a name="link" href="admins.php">
+                        <div class="side-link text-dark p-3 mt-2">
+                            <i class="fas fa-user-tie ml-4"></i>
+                            Admins
+                        </div>
+                    </a>
+                    <a name="link" href="admin_hr.php">
+                        <div class="side-link text-dark p-3 mt-2">
+                            <i class="fas fa-user-tie ml-4"></i>
+                            HRDO Admin
+                        </div>
+                    </a>
+                    <a name="link" href="request.php">
+                        <div class="side-link-active text-success p-3 mt-2">
+                            <i class="fas fa-scroll ml-4"></i>
+                            Requests
+                        </div>
+                    </a>
+                    <a name="link" href="reports.php">
+                        <div class="side-link text-dark p-3 mt-2">
+                            <i class="fas fa-table ml-4"></i>
+                            Reports
+                        </div>
+                    </a>
+                    <a name="link" href="reset.php">
+                        <div class="side-link text-dark p-3 mt-2">
+                            <i class="fas fa-sync-alt ml-4"></i>
+                            Reset ML & SPL
+                        </div>
+                    </a>
+                </div>
             </div>
             <div class="content col-xl-9 col-lg-8 overflow-hidden">
                <div class="container">
@@ -80,35 +102,35 @@
                                     </th>
                                 </tr>
                                 <?php
-                                    $request_table_sql = "Select leaverequestEmployeeName, leaverequestType, leaverequestNoOfDays, leaverequestStartDate, leaverequestEndDate, leaverequestID, emp_id, emp_supervisor from leaverequest where hr_status = 'Pending'";
+                                    $request_table_sql = "Select  leaverequestID, leaverequestEmployeeName, leaverequestType, leaverequestNoOfDays, leaverequestStartDate, leaverequestEndDate, emp_id, emp_supervisor from leaverequest where emp_supervisor = '$ID_No' && emp_supervisor_response = 'Pending'";
                                     $request_table_result = mysqli_query($connection,$request_table_sql);
+                                    // echo $ID_No;
                                     if($request_table_result -> num_rows > 0){
-                                        while($row = $request_table_result -> fetch_assoc()){
-                                            echo '<tr><td style="display:none;">' .$row["leaverequestID"] .'</td>'.
-                                                 '<td style="display:none;">'. $row["emp_id"] . '</td>'.
-                                                 '<td style="display:none;">'. $row["emp_supervisor"] . '</td>'.
-                                                 '<td>'. $row["leaverequestEmployeeName"] . '</td>'.
-                                                 '<td>'. $row["leaverequestType"] . '</td>'.
-                                                 '<td>'. $row["leaverequestNoOfDays"] . '</td>'.
-                                                 '<td>'. $row["leaverequestStartDate"] . '</td>'.
-                                                 '<td>'. $row["leaverequestEndDate"] . '</td>'.
-                                                 '<td>
-                                                    <div class="row justify-content-between">
-                                                        <form action="approved.php" method="post">
-                                                            <input type="hidden" name="lr_ID" id="dStatus" value="'.$row['leaverequestID'].'">
-                                                            <input type="hidden" name="lr_EID" id="dStatus" value="'.$row['emp_id'].'">
-                                                            <input type="hidden" name="lr_super" id="dStatus" value="'.$row['emp_supervisor'].'">
-                                                            <input type="hidden" name="lr_type" id="dtype" value="'.$row['leaverequestType'].'">
-                                                            <button name="approved" class="btn btn-primary">Approve</button>
-                                                        </form>
-                                                        
-                                                        <button name="deny" class="btn btn-warning" id="deny_btn" onclick="modalOpen()">Deny</button>
-                                                    </div>
-                                                 </td> </tr>';
-
-                                        }
-                                    }
-                                ?>
+                                        while($row = $request_table_result -> fetch_assoc()){?>
+                                        <tr>
+                                            <td style="display:none;"><?=$row["leaverequestID"]?></td>
+                                            <td style="display:none;"><?=$row["emp_id"]?></td>
+                                            <td style="display:none;"><?=$row["emp_supervisor"]?></td>
+                                            <td><?=$row["leaverequestEmployeeName"]?></td>
+                                            <td><?=$row["leaverequestType"]?></td>
+                                            <td><?=$row["leaverequestNoOfDays"]?></td>
+                                            <td><?=$row["leaverequestStartDate"]?></td>
+                                            <td><?=$row["leaverequestEndDate"]?></td>
+                                            <td>
+                                                <div class="row justify-content-between">
+                                                    <form action="approved.php" method="post">
+                                                        <input type="hidden" name="lr_ID" id="dStatus" value="<?=$row['leaverequestID'];?>">
+                                                        <input type="hidden" name="lr_EID" id="dStatus" value="<?=$row['emp_id'];?>">
+                                                        <input type="hidden" name="lr_super" id="dStatus" value="<?=$row['emp_supervisor'];?>">
+                                                        <input type="hidden" name = "lr_type" value = "<?=$row['leaverequestType'];?>">
+                                                        <button name="approved" class="btn btn-primary">Approve</button>
+                                                    </form>
+                                                    
+                                                    <button onclick="modalOpen()" class="btn btn-warning" id="deny_btn" >Deny</button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    <?php }}?>
                             </table>
                         </div>
                         <!--REMARKS MODAL-->
@@ -121,7 +143,7 @@
                                     <input type="text" name="lr_remarks" class="form-control">
                                     <div class="row justify-content-between">
                                         <button type="submit" class="btn btn-success mt-3">Confirm</button>
-                                        <button type="button" class="btn btn-danger mt-3" onclick="modalClose()">Cancel</button>
+                                        <button type="button" class="btn btn-danger mt-3" onclick="modalClose()">Cancel</buton>
                                     </div>
                                 </form>
                             </div>
@@ -148,14 +170,15 @@
         {
             table.rows[i].onclick = function()
             {
-                 //rIndex = this.rowIndex;
-                //alert(this.cells[0].innerHTML);
+                //FOR MODAL
                 document.getElementById("l_ID").value = this.cells[0].innerHTML;
                 document.getElementById("l_EID").value = this.cells[1].innerHTML;
                 document.getElementById("l_super").value = this.cells[2].innerHTML;
+                
             };
         }
     </script>
     <?php include('js/script.php');?>
+    
 </body>
 </html>
